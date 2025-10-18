@@ -1,0 +1,10 @@
+<view class="container">
+  <view class="h1">预约导览</view>
+  <view class="card">
+    <input placeholder="门店/点位ID" bindinput="onPoi" value="{{poiId}}" />
+    <input placeholder="日期 YYYY-MM-DD" bindinput="onDate" value="{{date}}" />
+    <input placeholder="时间 HH:mm" bindinput="onTime" value="{{time}}" />
+    <input placeholder="人数 1-20" type="number" bindinput="onPax" value="{{pax}}" />
+    <button class="btn" bindtap="submit">提交预约</button>
+  </view>
+</view>

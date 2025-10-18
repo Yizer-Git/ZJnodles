@@ -1,0 +1,186 @@
+<view class="ds-page home-page">
+  <view class="home-search surface-card surface-card--frosted" bindtap="goSearch">
+    <text class="search-icon">🔍</text>
+    <text class="search-placeholder">搜“麦香礼盒”或“晾晒工艺”</text>
+  </view>
+
+  <view class="home-banner">
+    <view class="banner-content">
+      <text class="banner-eyebrow">非遗面里 · 麦穗岁月</text>
+      <text class="banner-title">中江挂面 · 古法回甘</text>
+      <text class="banner-subtitle">跟随传承人的手作步伐，体验晾晒的暖风与麦香。</text>
+    </view>
+  </view>
+
+  <view class="ds-section main-actions">
+    <view class="actions-card ds-card">
+      <view class="ds-section__header actions-header">
+        <text class="ds-title">核心数字服务</text>
+        <text class="ds-subtitle">文旅、溯源、商城一站式入口</text>
+      </view>
+      <view class="action-grid">
+        <view class="action-item" bindtap="goCommunity">
+          <text class="action-icon action-icon--accent">🌟</text>
+          <text class="action-title">社区任务</text>
+        </view>
+        <view class="action-item" bindtap="goStudy">
+          <text class="action-icon action-icon--primary">📅</text>
+          <text class="action-title">研学预约</text>
+        </view>
+        <view class="action-item" bindtap="goTrace">
+          <text class="action-icon action-icon--primary">🔗</text>
+          <text class="action-title">区块链溯源</text>
+        </view>
+        <view class="action-item" bindtap="goProducts">
+          <text class="action-icon action-icon--primary">🛍️</text>
+          <text class="action-title">商城精选</text>
+        </view>
+        <view class="action-item" bindtap="goHeritageStory">
+          <text class="action-icon">📜</text>
+          <text class="action-title">非遗故事</text>
+        </view>
+        <view class="action-item" bindtap="goCraftProcess">
+          <text class="action-icon">🛠️</text>
+          <text class="action-title">制作工艺</text>
+        </view>
+        <view class="action-item" bindtap="goMasterArchive">
+          <text class="action-icon">👥</text>
+          <text class="action-title">传承档案</text>
+        </view>
+        <view class="action-item" bindtap="goEnterprise">
+          <text class="action-icon">🤝</text>
+          <text class="action-title">企业合作</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="ds-section">
+    <view class="section-card ds-card">
+      <view class="section-card__header">
+        <text class="section-card__title">非遗制作实景</text>
+        <text class="section-card__subtitle">视频长廊呈现匠人手势、竹筛、麦香与蒸汽</text>
+      </view>
+      <scroll-view scroll-x class="gallery-scroll">
+        <block wx:if="{{loading && !heritageHighlights.length}}">
+          <block wx:for="{{[1,2,3]}}" wx:key="*this">
+            <view class="gallery-card ds-card ds-shimmer"></view>
+          </block>
+        </block>
+        <block wx:else>
+          <block wx:for="{{heritageHighlights}}" wx:key="id">
+            <view class="gallery-card">
+              <image
+                class="gallery-cover"
+                mode="aspectFill"
+                src="{{item.cover || 'https://dummyimage.com/320x200/cdeff5/ffffff&text=Heritage'}}"
+              ></image>
+              <text class="gallery-label">{{item.categoryLabel || '非遗'}}</text>
+              <text class="gallery-name">{{item.title}}</text>
+            </view>
+          </block>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+
+  <view class="ds-section">
+    <view class="section-card ds-card">
+      <view class="section-card__header">
+        <text class="section-card__title">运营看板</text>
+        <text class="section-card__subtitle">宣传、直播、研学体验位实时掌控</text>
+      </view>
+      <block wx:if="{{loading}}">
+        <block wx:for="{{[1,2,3]}}" wx:key="*this">
+          <view class="operation-card ds-card ds-shimmer"></view>
+        </block>
+      </block>
+      <block wx:else>
+        <block wx:for="{{operations}}" wx:key="id">
+          <view class="operation-card ds-card ds-motif">
+            <view class="operation-head">
+              <text class="operation-title">{{item.name}}</text>
+              <text class="operation-status {{item.online ? 'online' : 'offline'}}">
+                {{item.online ? '在线' : '筹备中'}}
+              </text>
+            </view>
+            <text class="operation-desc">{{item.description || '匠心主题活动上新筹备中'}}</text>
+          </view>
+        </block>
+      </block>
+    </view>
+  </view>
+
+  <view class="ds-section">
+    <view class="section-card ds-card">
+      <view class="section-card__header">
+        <text class="section-card__title">非遗好物精选</text>
+        <text class="section-card__subtitle">古法晾晒的味道，加一抹青蓝与暖珊瑚</text>
+      </view>
+      <scroll-view scroll-x class="recommend-scroll">
+        <block wx:if="{{loading}}">
+          <block wx:for="{{[1,2,3]}}" wx:key="*this">
+            <view class="recommend-card ds-card ds-shimmer"></view>
+          </block>
+        </block>
+        <block wx:else>
+          <block wx:for="{{recommendations}}" wx:key="id">
+            <view class="recommend-card ds-card ds-motif">
+              <image
+                class="recommend-cover"
+                mode="aspectFill"
+                src="{{item.cover || 'https://dummyimage.com/320x320/cdeff5/0097a7&text=%E6%8C%82%E9%9D%A2'}}"
+              ></image>
+              <view class="recommend-tags">
+                <text class="recommend-label">{{item.heritageLabel || '非遗古法'}}</text>
+                <text class="recommend-note">{{item.craftNote || '自然晾晒'}}</text>
+              </view>
+              <text class="recommend-title">{{item.title}}</text>
+              <text class="recommend-desc">{{item.description}}</text>
+              <text class="recommend-price">{{item.priceText || '¥--'}}</text>
+            </view>
+          </block>
+        </block>
+      </scroll-view>
+      <button class="card-more-btn ds-pill ds-pill--primary" bindtap="goProducts">逛面里精选</button>
+    </view>
+  </view>
+
+  <view class="ds-section">
+    <view class="section-card ds-card">
+      <view class="section-card__header">
+        <text class="section-card__title">非遗故事集</text>
+        <text class="section-card__subtitle">传承人、古法瞬间、乡土风物每日更新</text>
+      </view>
+      <block wx:if="{{loading && !cultureStories.length}}">
+        <block wx:for="{{[1,2,3,4]}}" wx:key="*this">
+          <view class="content-card ds-card ds-shimmer"></view>
+        </block>
+      </block>
+      <block wx:else>
+        <block wx:for="{{cultureStories}}" wx:key="id">
+          <view class="content-card ds-card ds-motif">
+            <text class="content-category">{{item.categoryLabel || '非遗'}}</text>
+            <text class="content-title">{{item.title}}</text>
+            <text class="content-desc">{{item.description}}</text>
+          </view>
+        </block>
+      </block>
+    </view>
+  </view>
+
+  <view wx:if="{{showCampaign && campaign}}" class="campaign-overlay">
+    <view class="campaign-card ds-card ds-card--frosted ds-motif">
+      <text class="campaign-title">{{campaign.title}}</text>
+      <text class="campaign-desc">
+        {{campaign.description || '报名传承课堂，近距离体验晾晒工序与古法面香。'}}
+      </text>
+      <button class="campaign-btn ds-pill ds-pill--primary" bindtap="goMasterArchive">预约非遗课堂</button>
+      <text class="campaign-close" bindtap="closeCampaign">暂不提醒</text>
+    </view>
+  </view>
+
+  <view class="fab-wrapper" bindtap="goTrace">
+    <text class="fab-icon">＋</text>
+  </view>
+</view>

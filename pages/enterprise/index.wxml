@@ -1,0 +1,102 @@
+<view class="page">
+  <view class="profile-card surface-card surface-card--frosted">
+    <text class="profile-title">企业档案</text>
+    <text class="profile-line">企业名称：{{profile && profile.companyName ? profile.companyName : '待完善'}}</text>
+    <text class="profile-line">统一社会信用代码：{{profile && profile.licenseNo ? profile.licenseNo : '待上传'}}</text>
+    <text class="profile-line">对接经理：{{profile && profile.managerName ? profile.managerName : '分配中'}} {{profile && profile.managerPhone ? profile.managerPhone : ''}}</text>
+    <text class="profile-line">服务状态：{{profile && profile.statusLabel ? profile.statusLabel : '未激活'}}</text>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <view class="meta">
+        <text class="section-title">需求登记</text>
+        <text class="section-subtitle">完善企业资料，获取定制化方案</text>
+      </view>
+    </view>
+    <view class="form surface-card">
+      <input class="input" placeholder="企业名称" value="{{form.companyName}}" bindinput="handleInput" data-field="companyName" />
+      <input class="input" placeholder="联系人" value="{{form.contact}}" bindinput="handleInput" data-field="contact" />
+      <input class="input" placeholder="联系电话" value="{{form.contactPhone}}" bindinput="handleInput" data-field="contactPhone" />
+      <textarea class="textarea" placeholder="需求描述（供应链、定制产品、渠道合作等）" value="{{form.demand}}" bindinput="handleInput" data-field="demand"></textarea>
+      <input class="input" placeholder="预算预估（选填）" value="{{form.budget}}" bindinput="handleInput" data-field="budget" />
+      <button class="submit pill-btn pill-btn--primary" loading="{{submitting}}" bindtap="submitRequirement">提交需求</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <view class="meta">
+        <text class="section-title">需求进度</text>
+        <text class="section-subtitle">跟进内部流转与回访节点</text>
+      </view>
+    </view>
+    <block wx:if="{{requirements.length === 0}}">
+      <view class="empty surface-card surface-card--frosted">暂未提交需求</view>
+    </block>
+    <block wx:else>
+      <block wx:for="{{requirements}}" wx:key="id">
+        <view class="require-card surface-card">
+          <text class="require-title">{{item.title}}</text>
+          <text class="require-desc">{{item.description}}</text>
+          <view class="require-meta">
+            <text>状态：{{item.statusLabel}}</text>
+            <text>更新时间：{{item.updatedAtText}}</text>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <view class="meta">
+        <text class="section-title">合同签署</text>
+        <text class="section-subtitle">线上批阅、加盖公章、自动归档</text>
+      </view>
+    </view>
+    <block wx:if="{{contracts.length === 0}}">
+      <view class="empty surface-card surface-card--frosted">暂无合同，需求评估通过后生成</view>
+    </block>
+    <block wx:else>
+      <block wx:for="{{contracts}}" wx:key="id">
+        <view class="contract-card surface-card">
+          <text class="contract-title">{{item.title}}</text>
+          <text class="contract-desc">{{item.description}}</text>
+          <view class="contract-meta">
+            <text>签署状态：{{item.statusLabel}}</text>
+            <text>截止：{{item.deadlineText}}</text>
+          </view>
+          <button class="pill-btn pill-btn--ghost" size="mini" bindtap="previewContract" data-url="{{item.previewUrl}}">预览合同</button>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <view class="meta">
+        <text class="section-title">发票中心</text>
+        <text class="section-subtitle">开票进度、物流状态一目了然</text>
+      </view>
+    </view>
+    <block wx:if="{{invoices.length === 0}}">
+      <view class="empty surface-card surface-card--frosted">暂无开票记录</view>
+    </block>
+    <block wx:else>
+      <block wx:for="{{invoices}}" wx:key="id">
+        <view class="invoice-card surface-card surface-card--frosted">
+          <view class="invoice-header">
+            <text class="invoice-title">{{item.title}}</text>
+            <text class="invoice-amount">¥{{item.amount}}</text>
+          </view>
+          <view class="invoice-meta">
+            <text>类型：{{item.typeLabel}}</text>
+            <text>状态：{{item.statusLabel}}</text>
+          </view>
+          <button class="pill-btn pill-btn--primary" size="mini" bindtap="downloadInvoice" data-url="{{item.fileUrl}}">下载发票</button>
+        </view>
+      </block>
+    </block>
+  </view>
+</view>

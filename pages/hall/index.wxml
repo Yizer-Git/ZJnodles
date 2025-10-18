@@ -1,0 +1,73 @@
+<view class="page">
+  <view class="section-header">
+    <text class="section-title">沉浸式体验</text>
+    <text class="section-subtitle">3D工艺流程、互动机位、导览路线</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="skeleton">
+    <block wx:for="{{[1,2,3]}}" wx:key="*this">
+      <view class="skeleton-card surface-card shimmer"></view>
+    </block>
+  </view>
+
+  <scroll-view wx:else scroll-x class="scene-scroll">
+    <block wx:for="{{scenes}}" wx:key="id">
+      <view class="scene-card surface-card surface-card--frosted" bindtap="handleSceneTap" data-id="{{item.id}}">
+        <image class="scene-cover" mode="aspectFill" src="{{item.cover}}"></image>
+        <view class="scene-info">
+          <text class="scene-title">{{item.title}}</text>
+          <text class="scene-desc">{{item.description}}</text>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <view class="section-header mission">
+    <text class="section-title">闯关任务</text>
+    <button class="mission-btn pill-btn pill-btn--primary" bindtap="openMissionDrawer">查看任务</button>
+  </view>
+
+  <view class="section-header">
+    <text class="section-title">徽章中心</text>
+    <text class="section-subtitle">收藏你的专属荣誉</text>
+  </view>
+  <view class="badge-grid">
+    <block wx:for="{{badges}}" wx:key="id">
+      <view class="badge-card surface-card surface-card--frosted">
+        <image class="badge-icon" mode="aspectFit" src="{{item.icon}}"></image>
+        <text class="badge-title">{{item.title}}</text>
+        <button class="pill-btn pill-btn--ghost" size="mini" bindtap="shareBadge" data-id="{{item.id}}">分享</button>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{activeScene}}" class="scene-dialog">
+    <view class="dialog-content surface-card surface-card--frosted">
+      <text class="dialog-title">{{activeScene.title}}</text>
+      <video class="dialog-video" src="{{activeScene.preview}}" controls></video>
+      <text class="dialog-desc">{{activeScene.description}}</text>
+      <button class="pill-btn pill-btn--primary" bindtap="closeScenePreview">关闭预览</button>
+    </view>
+  </view>
+
+  <view wx:if="{{showMissionDrawer}}" class="mission-drawer">
+    <view class="drawer-mask" bindtap="closeMissionDrawer"></view>
+    <view class="drawer-content surface-card surface-card--frosted">
+      <view class="drawer-header">
+        <text class="drawer-title">任务中心</text>
+        <text class="drawer-desc">完成任务可升级徽章，兑换积分</text>
+      </view>
+      <scroll-view scroll-y class="drawer-list">
+        <block wx:for="{{missions}}" wx:key="id">
+          <view class="mission-row surface-card">
+            <view class="mission-info">
+              <text class="mission-title">{{item.title}}</text>
+              <text class="mission-desc">{{item.description}}</text>
+            </view>
+            <button class="pill-btn pill-btn--primary" size="mini" bindtap="startMission" data-id="{{item.id}}">去挑战</button>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+</view>

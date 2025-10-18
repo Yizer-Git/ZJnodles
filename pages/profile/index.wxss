@@ -1,0 +1,146 @@
+.page {
+  padding: 48rpx 32rpx 120rpx;
+  background: transparent;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.header-card {
+  padding: 36rpx;
+  color: #ffffff;
+  margin-bottom: 48rpx;
+  box-shadow: none;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 48rpx;
+  background: rgba(255, 255, 255, 0.8);
+  border: 4rpx solid rgba(255, 255, 255, 0.6);
+}
+
+.user-meta {
+  margin-left: 24rpx;
+}
+
+.nickname {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.desc {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  opacity: 0.85;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+  margin-top: 32rpx;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.stat-value {
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  opacity: 0.85;
+}
+
+.section {
+  margin-bottom: 48rpx;
+}
+
+.section-header {
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.section-subtitle {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #667085;
+}
+
+.entry-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 16rpx;
+  box-shadow: none;
+}
+
+.entry-content {
+  flex: 1;
+}
+
+.entry-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.entry-desc {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #475467;
+}
+
+.entry-arrow {
+  font-size: 40rpx;
+  color: #cbd5f5;
+}
+
+.ops-card {
+  border-radius: 24rpx;
+  padding: 28rpx;
+  box-shadow: none;
+}
+
+.ops-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+  font-size: 26rpx;
+  color: #475467;
+}
+
+.highlight {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.contact-btn {
+  margin-top: 28rpx;
+  width: 100%;
+  border: none;
+}

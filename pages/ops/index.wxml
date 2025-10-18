@@ -1,0 +1,95 @@
+<view class="page">
+  <view class="dashboard-card surface-card surface-card--accent">
+    <view class="dashboard-header">
+      <text class="title">运营驾驶舱</text>
+      <button class="pill-btn pill-btn--ghost" size="mini" bindtap="handleSyncInventory">同步库存</button>
+    </view>
+    <view class="metrics">
+      <view class="metric">
+        <text class="metric-number">{{dashboard && dashboard.operations && dashboard.operations.onlineSlots ? dashboard.operations.onlineSlots : 0}}</text>
+        <text class="metric-label">上线运营位</text>
+      </view>
+      <view class="metric">
+        <text class="metric-number">{{dashboard && dashboard.orders && dashboard.orders.pending ? dashboard.orders.pending : 0}}</text>
+        <text class="metric-label">待处理订单</text>
+      </view>
+      <view class="metric">
+        <text class="metric-number">{{dashboard && dashboard.alerts && dashboard.alerts.today ? dashboard.alerts.today : 0}}</text>
+        <text class="metric-label">今日异常</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <view class="meta">
+        <text class="section-title">动态运营位</text>
+        <text class="section-subtitle">一键切换露出，实时联动前台阵列</text>
+      </view>
+    </view>
+    <block wx:if="{{!(dashboard && dashboard.operations && dashboard.operations.slots) || dashboard.operations.slots.length === 0}}">
+      <view class="empty surface-card surface-card--frosted">暂无运营位配置</view>
+    </block>
+    <block wx:else>
+      <block wx:for="{{dashboard.operations.slots}}" wx:key="id">
+        <view class="slot-card surface-card surface-card--frosted">
+          <view class="slot-info">
+            <text class="slot-title">{{item.name}}</text>
+            <text class="slot-desc">{{item.description}}</text>
+          </view>
+          <switch checked="{{item.online}}" bindchange="handleToggleSlot" data-slot-id="{{item.id}}" data-enable="{{!item.online}}"></switch>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <view class="meta">
+        <text class="section-title">待办任务</text>
+        <text class="section-subtitle">审批、复核、风控流转集中处理</text>
+      </view>
+    </view>
+    <block wx:if="{{tasks.length === 0}}">
+      <view class="empty surface-card surface-card--frosted">暂无待办任务</view>
+    </block>
+    <block wx:else>
+      <block wx:for="{{tasks}}" wx:key="id">
+        <view class="task-card surface-card">
+          <text class="task-title">{{item.title}}</text>
+          <text class="task-desc">{{item.description}}</text>
+          <view class="task-meta">
+            <text>类型：{{item.typeLabel}}</text>
+            <text>优先级：{{item.priorityLabel}}</text>
+          </view>
+          <view class="task-actions">
+            <button class="pill-btn pill-btn--ghost" size="mini" bindtap="handleTaskAction" data-id="{{item.id}}" data-action="approve">通过</button>
+            <button class="pill-btn pill-btn--ghost" size="mini" bindtap="handleTaskAction" data-id="{{item.id}}" data-action="reject">驳回</button>
+            <button class="pill-btn pill-btn--primary" size="mini" type="primary" bindtap="handleTaskAction" data-id="{{item.id}}" data-action="done">完成</button>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <view class="meta">
+        <text class="section-title">风控日志</text>
+        <text class="section-subtitle">实时监测异常与追踪闭环</text>
+      </view>
+    </view>
+    <block wx:if="{{logs.length === 0}}">
+      <view class="empty surface-card surface-card--frosted">暂无异常日志</view>
+    </block>
+    <block wx:else>
+      <block wx:for="{{logs}}" wx:key="id">
+        <view class="log-card surface-card surface-card--frosted">
+          <text class="log-title">{{item.title}}</text>
+          <text class="log-time">{{item.timestampText}}</text>
+          <text class="log-desc">{{item.description}}</text>
+        </view>
+      </block>
+    </block>
+  </view>
+</view>

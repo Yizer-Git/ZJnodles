@@ -1,0 +1,107 @@
+<view class="ds-page products-page">
+  <view class="header ds-card ds-card--accent">
+    <text class="title">面里精选</text>
+    <text class="subtitle">非遗古法礼盒 · 匠人手作的日常餐桌</text>
+  </view>
+
+  <scroll-view class="filters ds-card ds-card--frosted ds-motif" scroll-x>
+    <block wx:for="{{filters}}" wx:key="value">
+      <view
+        class="filter-item {{activeFilter === item.value ? 'active' : ''}}"
+        data-value="{{item.value}}"
+        bindtap="handleFilterChange"
+      >
+        <text class="filter-label">{{item.label}}</text>
+        <text class="filter-tip">{{activeFilter === item.value ? '匠心甄选' : '即刻查看'}}</text>
+      </view>
+    </block>
+  </scroll-view>
+
+  <view class="ds-section">
+    <view class="ds-section__header">
+      <text class="ds-title">匠心礼遇套餐</text>
+      <text class="section-action" bindtap="showDiscountTips">查看优惠叠加</text>
+    </view>
+    <block wx:if="{{bundles.length === 0 && loading}}">
+      <view class="bundle-card ds-card ds-shimmer"></view>
+    </block>
+    <block wx:else>
+      <block wx:for="{{bundles}}" wx:key="id">
+        <view class="bundle-card ds-card ds-motif" bindtap="previewBundle" data-id="{{item.id}}">
+          <view class="bundle-head">
+            <text class="bundle-title">{{item.title}}</text>
+            <view class="bundle-notes">
+              <text class="bundle-badge">手工双份</text>
+              <text class="bundle-badge bundle-badge--green">非遗古法</text>
+            </view>
+          </view>
+          <text class="bundle-items">{{item.items}}</text>
+          <view class="bundle-footer">
+            <text class="bundle-price">{{item.priceLabel}}</text>
+            <text class="bundle-original">{{item.originalPriceLabel}}</text>
+            <text class="bundle-saving">{{item.savingLabel}}</text>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <view class="ds-section">
+    <view class="section-header">
+      <text class="ds-title">上新·非遗古法</text>
+      <button class="checkout-btn ds-pill ds-pill--primary" size="mini" bindtap="goToCheckout">前往下单</button>
+    </view>
+    <view wx:if="{{loading}}" class="state ds-card ds-card--frosted ds-shimmer">加载中...</view>
+    <block wx:elif="{{items.length}}">
+      <view class="list">
+        <block wx:for="{{items}}" wx:key="id">
+          <view class="card ds-card ds-motif">
+            <image class="cover" mode="aspectFill" src="{{item.cover}}" />
+            <view class="heritage-strip">
+              <text class="heritage-note">{{item.heritageNote}}</text>
+              <text class="heritage-note heritage-note--green">{{item.craftNote}}</text>
+            </view>
+            <view class="info">
+              <view class="title">{{item.title}}</view>
+              <view wx:if="{{item.subtitle}}" class="card-subtitle">{{item.subtitle}}</view>
+              <view class="tags">
+                <block wx:for="{{item.tags}}" wx:key="*this">
+                  <text class="tag">{{item}}</text>
+                </block>
+              </view>
+              <view class="footer">
+                <view class="price">
+                  <text class="price-value">{{item.priceLabel}}</text>
+                  <text class="price-hint">/ 手工日晒</text>
+                </view>
+                <button
+                  class="add-btn ds-pill ds-pill--primary"
+                  data-id="{{item.id}}"
+                  bindtap="addToCart"
+                  type="primary"
+                  size="mini"
+                >加入面篮</button>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </block>
+    <view wx:else class="state">暂无商品</view>
+  </view>
+
+  <view class="ds-section">
+    <view class="ds-section__header">
+      <text class="ds-title">履约与服务</text>
+      <text class="ds-subtitle">仓配、时效、售后，守护面里的一碗热汤</text>
+    </view>
+    <view class="logistics ds-card ds-card--frosted ds-motif">
+      <block wx:for="{{logistics}}" wx:key="label">
+        <view class="logistics-item">
+          <text class="logistics-label">{{item.label}}</text>
+          <text class="logistics-value">{{item.value}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,83 @@
+<view class="page">
+  <view class="header surface-card surface-card--frosted">
+    <text class="title">区块链溯源中心</text>
+    <text class="subtitle">批次上链 · 质检报告 · 异常闭环</text>
+  </view>
+
+  <view class="search-bar surface-card surface-card--frosted">
+    <input class="search-input" placeholder="输入批次码 / 一物一码" bindinput="onInput" value="{{code}}" />
+    <button class="pill-btn pill-btn--ghost" size="mini" bindtap="handleScan">扫码</button>
+    <button class="pill-btn pill-btn--primary" size="mini" type="primary" bindtap="search">查询</button>
+  </view>
+
+  <view wx:if="{{loading}}" class="state surface-card surface-card--frosted shimmer skeleton">查询中...</view>
+
+  <view wx:if="{{batch}}" class="result-card surface-card">
+    <view class="result-row">
+      <text class="label">批次号</text>
+      <text class="value">{{batch.batchCode}}</text>
+    </view>
+    <view class="result-row">
+      <text class="label">上链时间</text>
+      <text class="value">{{batch.chainTimestamp}}</text>
+    </view>
+    <view class="result-row">
+      <text class="label">当前状态</text>
+      <text class="status">{{batch.statusLabel || batch.status}}</text>
+    </view>
+
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">质检报告</text>
+      </view>
+      <block wx:if="{{!batch.reports || !batch.reports.length}}">
+        <text class="empty surface-card surface-card--frosted">暂无质检数据</text>
+      </block>
+      <block wx:else>
+        <block wx:for="{{batch.reports}}" wx:key="id">
+          <view class="report-item surface-card surface-card--frosted">
+            <text class="report-title">{{item.title}}</text>
+            <text class="report-result">{{item.result}}</text>
+            <text class="report-time">{{item.timestamp}}</text>
+          </view>
+        </block>
+      </block>
+    </view>
+
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">区块链记录</text>
+      </view>
+      <block wx:if="{{!batch.chainRecords || !batch.chainRecords.length}}">
+        <text class="empty surface-card surface-card--frosted">暂无上链记录</text>
+      </block>
+      <block wx:else>
+        <block wx:for="{{batch.chainRecords}}" wx:key="hash">
+          <view class="chain-item surface-card surface-card--frosted">
+            <text class="hash">{{item.hash}}</text>
+            <text class="node">节点：{{item.node}}</text>
+            <text class="time">{{item.timestamp}}</text>
+          </view>
+        </block>
+      </block>
+    </view>
+
+    <button class="feedback-btn pill-btn pill-btn--primary" bindtap="openFeedback">发现异常，提交质检反馈</button>
+  </view>
+
+  <view wx:if="{{!loading && !batch}}" class="placeholder">
+    <text>输入批次码或扫一扫包装码，查看完整溯源链路。</text>
+  </view>
+
+  <view wx:if="{{showFeedback}}" class="feedback-dialog">
+    <view class="dialog-content surface-card surface-card--frosted">
+      <text class="dialog-title">异常反馈闭环</text>
+      <textarea class="dialog-input" placeholder="请描述发现的问题，例如口感、包装破损、配送异常..." bindinput="handleFeedbackInput" data-field="message" value="{{feedback.message}}"></textarea>
+      <input class="dialog-input" placeholder="手机号 / 邮箱（选填，方便回访）" bindinput="handleFeedbackInput" data-field="contact" value="{{feedback.contact}}" />
+      <view class="dialog-actions">
+        <button class="pill-btn pill-btn--ghost" size="mini" bindtap="closeFeedback">取消</button>
+        <button class="pill-btn pill-btn--primary" size="mini" type="primary" bindtap="submitFeedback">提交</button>
+      </view>
+    </view>
+  </view>
+</view>

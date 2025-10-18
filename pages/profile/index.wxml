@@ -1,0 +1,63 @@
+<view class="page">
+  <view class="header-card surface-card surface-card--accent">
+    <view class="user-info">
+      <open-data type="userAvatarUrl" class="avatar"></open-data>
+      <view class="user-meta">
+        <open-data type="userNickName" class="nickname"></open-data>
+        <text class="desc">欢迎来到中江挂面数字服务中心</text>
+      </view>
+    </view>
+    <view class="stat-grid">
+      <view class="stat-item">
+        <text class="stat-value">{{member && member.points ? member.points : 0}}</text>
+        <text class="stat-label">积分</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{member && member.level ? member.level : 0}}</text>
+        <text class="stat-label">会员等级</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{ops && ops.pendingTasks ? ops.pendingTasks : 0}}</text>
+        <text class="stat-label">待办</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">快捷服务</text>
+      <text class="section-subtitle">订单、预约、企业服务一站式入口</text>
+    </view>
+    <block wx:for="{{entries}}" wx:key="id">
+      <view class="entry-card surface-card surface-card--frosted" bindtap="handleEntryTap" data-path="{{item.path}}" data-tab="{{item.tab}}">
+        <view class="entry-content">
+          <text class="entry-title">{{item.title}}</text>
+          <text class="entry-desc">{{item.description}}</text>
+        </view>
+        <text class="entry-arrow">›</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">运营概览</text>
+      <text class="section-subtitle">CMS内容、OMS订单、风控日志</text>
+    </view>
+    <view class="ops-card surface-card surface-card--frosted">
+      <view class="ops-row">
+        <text>动态运营位</text>
+        <text class="highlight">{{ops && ops.operations && ops.operations.onlineSlots ? ops.operations.onlineSlots : 0}}个上线</text>
+      </view>
+      <view class="ops-row">
+        <text>待审核UGC</text>
+        <text class="highlight">{{ops && ops.moderation && ops.moderation.pending ? ops.moderation.pending : 0}}条</text>
+      </view>
+      <view class="ops-row">
+        <text>异常预警</text>
+        <text class="highlight">{{ops && ops.alerts && ops.alerts.today ? ops.alerts.today : 0}}条</text>
+      </view>
+      <button class="contact-btn pill-btn pill-btn--primary" bindtap="handleContactOps">联系运营与客服</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/hall/index",
+    "pages/products/index",
+    "pages/community/index",
+    "pages/profile/index",
+    "pages/orders/index",
+    "pages/trace/index",
+    "pages/booking/index",
+    "pages/study/index",
+    "pages/enterprise/index",
+    "pages/ops/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "中江挂面",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "面里"
+      },
+      {
+        "pagePath": "pages/hall/index",
+        "text": "非遗"
+      },
+      {
+        "pagePath": "pages/products/index",
+        "text": "精选"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ]
+}

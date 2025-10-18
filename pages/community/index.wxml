@@ -1,0 +1,116 @@
+<view class="ds-page community-page">
+  <view class="profile-card ds-card ds-card--accent">
+    <view class="profile-info">
+      <image class="avatar" mode="aspectFill" src="{{profile && profile.avatar ? profile.avatar : '/assets/avatar-placeholder.png'}}"></image>
+      <view class="profile-meta">
+        <text class="nickname">{{profile && profile.nickname ? profile.nickname : '游客'}}</text>
+        <text class="level">LV{{profile && profile.level ? profile.level : 0}} {{profile && profile.levelName ? profile.levelName : '体验会员'}}</text>
+      </view>
+    </view>
+    <view class="profile-stats">
+      <view class="stat">
+        <text class="stat-number">{{profile && profile.points ? profile.points : 0}}</text>
+        <text class="stat-label">积分</text>
+      </view>
+      <view class="stat">
+        <text class="stat-number">{{profile && profile.growthValue ? profile.growthValue : 0}}</text>
+        <text class="stat-label">成长值</text>
+      </view>
+      <view class="stat">
+        <text class="stat-number">{{profile && profile.couponCount ? profile.couponCount : 0}}</text>
+        <text class="stat-label">优惠券</text>
+      </view>
+    </view>
+    <button class="checkin-btn pill-btn pill-btn--ghost" bindtap="handleCheckIn">签到领积分</button>
+  </view>
+
+  <view class="ds-section">
+    <view class="ds-section__header">
+      <text class="ds-title">任务中心</text>
+      <text class="ds-subtitle">完成任务提升等级权益</text>
+    </view>
+    <view wx:if="{{loading}}" class="task-skeleton">
+      <block wx:for="{{[1,2,3]}}" wx:key="*this">
+        <view class="task-card ds-card ds-shimmer"></view>
+      </block>
+    </view>
+    <block wx:else>
+      <block wx:for="{{tasks}}" wx:key="id">
+        <view class="task-card ds-card" bindtap="viewTask" data-id="{{item.id}}">
+          <view class="task-info">
+            <text class="task-title">{{item.name}}</text>
+            <text class="task-desc">{{item.description}}</text>
+          </view>
+          <view class="task-meta">
+            <text class="task-points">+{{item.rewardPoints}}积分</text>
+            <text class="task-status">{{item.statusLabel}}</text>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <view class="ds-section">
+    <view class="ds-section__header">
+      <text class="ds-title">社区动态</text>
+      <text class="ds-subtitle">会员精选·UGC内容</text>
+    </view>
+    <block wx:if="{{feeds.length === 0}}">
+      <view class="empty ds-card ds-card--frosted">暂无动态，欢迎发布你的故事</view>
+    </block>
+    <block wx:else>
+      <block wx:for="{{feeds}}" wx:key="id">
+        <view class="feed-card ds-card ds-card--frosted">
+          <view class="feed-header">
+            <image class="feed-avatar" mode="aspectFill" src="{{item.authorAvatar}}"></image>
+            <view>
+              <text class="feed-author">{{item.authorName}}</text>
+              <text class="feed-time">{{item.publishTimeText}}</text>
+            </view>
+          </view>
+          <text class="feed-content">{{item.content}}</text>
+          <scroll-view scroll-x class="feed-images">
+            <block wx:for="{{item.images}}" wx:key="*this">
+              <image class="feed-image" mode="aspectFill" src="{{item}}"></image>
+            </block>
+          </scroll-view>
+          <view class="feed-actions">
+            <text>👍 {{item.likes}}</text>
+            <text>💬 {{item.comments}}</text>
+            <text>🔁 {{item.shares}}</text>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <view class="ds-section">
+    <view class="ds-section__header">
+      <text class="ds-title">积分商城</text>
+      <text class="ds-subtitle">兑换周边与体验</text>
+    </view>
+    <scroll-view scroll-x class="mall-scroll">
+      <block wx:for="{{mall}}" wx:key="id">
+        <view class="mall-item ds-card">
+          <image class="mall-cover" mode="aspectFill" src="{{item.cover}}"></image>
+          <text class="mall-title">{{item.title}}</text>
+          <text class="mall-points">{{item.points}}积分</text>
+          <button class="pill-btn pill-btn--primary" size="mini" bindtap="redeemReward" data-id="{{item.id}}">立即兑换</button>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{showTaskSheet}}" class="task-sheet">
+    <view class="sheet-mask" bindtap="closeTaskSheet"></view>
+    <view class="sheet-content ds-card ds-card--frosted">
+      <text class="sheet-title">{{activeTask && activeTask.name ? activeTask.name : ''}}</text>
+      <text class="sheet-desc">{{activeTask && activeTask.description ? activeTask.description : ''}}</text>
+      <view class="sheet-meta">
+        <text>奖励：{{activeTask && activeTask.rewardPoints ? activeTask.rewardPoints : 0}}积分</text>
+        <text>截止：{{activeTask && activeTask.deadlineText ? activeTask.deadlineText : ''}}</text>
+      </view>
+      <button class="sheet-confirm pill-btn pill-btn--primary" bindtap="acceptTask">立即参与</button>
+    </view>
+  </view>
+</view>

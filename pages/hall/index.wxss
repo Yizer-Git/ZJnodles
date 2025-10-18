@@ -1,0 +1,236 @@
+.page {
+  padding: 48rpx 32rpx 120rpx;
+  background-color: transparent;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.section-header {
+  margin-bottom: 20rpx;
+}
+
+.section-header.mission {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40rpx;
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.section-subtitle {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #667085;
+}
+
+.scene-scroll {
+  white-space: nowrap;
+  padding-bottom: 8rpx;
+}
+
+.scene-card {
+  display: inline-block;
+  width: 480rpx;
+  margin-right: 24rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.scene-cover {
+  width: 100%;
+  height: 260rpx;
+  border-radius: 24rpx 24rpx 0 0;
+}
+
+.scene-info {
+  padding: 24rpx;
+}
+
+.scene-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.scene-desc {
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  color: #475467;
+}
+
+.mission-btn {
+  height: 64rpx;
+  line-height: 64rpx;
+  padding: 0 32rpx;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  border: none;
+}
+
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24rpx;
+  margin-top: 20rpx;
+}
+
+.badge-card {
+  border-radius: 24rpx;
+  padding: 28rpx 20rpx;
+  text-align: center;
+  box-shadow: none;
+}
+
+.badge-icon {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.badge-title {
+  display: block;
+  margin: 12rpx 0;
+  font-size: 26rpx;
+  color: #0f172a;
+}
+
+.scene-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.dialog-content {
+  width: 640rpx;
+  max-height: 80vh;
+  border-radius: 32rpx;
+  padding: 40rpx;
+  box-sizing: border-box;
+  box-shadow: none;
+}
+
+.dialog-title {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.dialog-video {
+  width: 100%;
+  height: 320rpx;
+  margin: 24rpx 0;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.dialog-desc {
+  font-size: 26rpx;
+  color: #475467;
+  line-height: 1.6;
+  margin-bottom: 24rpx;
+  display: block;
+}
+
+.mission-drawer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 30;
+}
+
+.drawer-mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.drawer-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 40rpx 40rpx 0 0;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: none;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.drawer-header {
+  padding: 36rpx;
+}
+
+.drawer-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.drawer-desc {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  color: #667085;
+}
+
+.drawer-list {
+  flex: 1;
+  padding: 24rpx 32rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.mission-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx;
+  border-radius: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: none;
+}
+
+.mission-info {
+  max-width: 480rpx;
+}
+
+.mission-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.mission-desc {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #475467;
+}
+
+.skeleton {
+  display: flex;
+  gap: 24rpx;
+}
+
+.skeleton-card {
+  width: 480rpx;
+  height: 360rpx;
+  border-radius: 24rpx;
+}

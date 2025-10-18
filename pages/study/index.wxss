@@ -1,0 +1,188 @@
+.page {
+  padding: 48rpx 32rpx 120rpx;
+  background: transparent;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 32rpx;
+  color: #1f2937;
+  margin-bottom: 48rpx;
+  box-shadow: none;
+}
+
+.title {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.subtitle {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #475467;
+}
+
+.date-picker {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  font-size: 26rpx;
+}
+
+.arrow {
+  margin-left: 12rpx;
+}
+
+.section {
+  margin-bottom: 48rpx;
+}
+
+.section-header {
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.section-subtitle {
+  font-size: 24rpx;
+  color: #667085;
+  margin-top: 8rpx;
+}
+
+.session-card {
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: none;
+}
+
+.session-card.skeleton {
+  height: 180rpx;
+}
+
+.session-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+  color: #475467;
+}
+
+.session-title {
+  margin-top: 12rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.session-desc {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  color: #475467;
+  line-height: 1.6;
+}
+
+.session-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: #64748b;
+  margin-top: 16rpx;
+}
+
+.session-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.empty {
+  padding: 80rpx 24rpx;
+  text-align: center;
+  color: #667085;
+  box-shadow: none;
+}
+
+.notice-card {
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  border-left: 8rpx solid rgba(59, 130, 246, 0.4);
+  box-shadow: none;
+}
+
+.notice-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.notice-time {
+  display: block;
+  font-size: 24rpx;
+  color: #94a3b8;
+  margin-top: 6rpx;
+}
+
+.notice-content {
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  color: #475467;
+  line-height: 1.6;
+}
+
+.certificate-toast {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+
+.toast-content {
+  width: 100%;
+  border-radius: 40rpx 40rpx 0 0;
+  padding: 40rpx;
+  text-align: center;
+  box-shadow: none;
+}
+
+.toast-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.toast-desc {
+  display: block;
+  margin: 16rpx 0 24rpx;
+  font-size: 24rpx;
+  color: #475467;
+  line-height: 1.6;
+}
+
+.toast-btn {
+  width: 100%;
+  border: none;
+}
+
+.toast-close {
+  display: block;
+  margin-top: 24rpx;
+  font-size: 24rpx;
+  color: #94a3b8;
+}
