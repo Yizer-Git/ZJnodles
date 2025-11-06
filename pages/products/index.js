@@ -11,38 +11,122 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const api_1 = require("../../services/api");
 const DEFAULT_PAGE_OPTIONS = { page: 1, size: 10 };
-const DEFAULT_COVER = 'https://dummyimage.com/600x400/eee/aaa&text=ZHGM';
+const DEFAULT_COVER = '/assets/images/product-images/19d9deb046197ca7aa255cba919c8a32.jpg';
 const FILTER_TABS = [
     { label: '热销推荐', value: 'hot' },
     { label: '新品上市', value: 'new' },
     { label: '组合套餐', value: 'bundle' },
     { label: '礼盒周边', value: 'gift' }
 ];
+const PRODUCT_BANNER_IMAGES = [
+    '/assets/images/serving-suggestions/6_0.jpg',
+    '/assets/images/serving-suggestions/6_2.jpg',
+    '/assets/images/serving-suggestions/6_3.jpg',
+    '/assets/images/serving-suggestions/6_4.jpg'
+];
+const LOCAL_PRODUCTS = [
+    {
+        id: 'local-heritage-gift',
+        title: '非遗古法礼盒',
+        subtitle: '匠人手作 · 实木礼盒收纳',
+        images: ['/assets/images/product-images/19d9deb046197ca7aa255cba919c8a32.jpg'],
+        tags: ['热销推荐', '实木礼盒', '伴手礼'],
+        heritageNote: '礼盒甄选',
+        craftNote: '原麦配方',
+        skus: [
+            {
+                id: 'sku-local-heritage',
+                price: 32800,
+                attrs: { 规格: '6袋礼盒', 工艺: '日晒古法' }
+            }
+        ],
+        filterTags: ['hot', 'gift']
+    },
+    {
+        id: 'local-new-bundle',
+        title: '椒麻挂面试吃装',
+        subtitle: '花椒提鲜 · 轻巧分装',
+        images: ['/assets/images/product-images/4025ed4b0491026c9e22d865d6435584.jpeg'],
+        tags: ['新品上市', '椒香', '轻食'],
+        heritageNote: '椒香手工',
+        craftNote: '即煮即享',
+        skus: [
+            {
+                id: 'sku-local-new',
+                price: 28900,
+                attrs: { 口味: '花椒清香', 规格: '4袋装' }
+            },
+            {
+                id: 'sku-local-new-plus',
+                price: 35800,
+                attrs: { 口味: '椒麻劲爽', 规格: '6袋装' }
+            }
+        ],
+        filterTags: ['new', 'bundle']
+    },
+    {
+        id: 'local-bundle-family',
+        title: '匠心家庭套餐',
+        subtitle: '多口味搭配 · 家庭分享',
+        images: ['/assets/images/product-images/4d52714b661caf20c0ddfbf86dba5652.jpg'],
+        tags: ['组合套餐', '限时礼遇', '家庭量贩'],
+        heritageNote: '家庭尊享',
+        craftNote: '多味慢晒',
+        skus: [
+            {
+                id: 'sku-local-family',
+                price: 45900,
+                attrs: { 规格: '8袋礼盒', 配料: '原味+荞麦' }
+            },
+            {
+                id: 'sku-local-family-plus',
+                price: 52800,
+                attrs: { 规格: '12袋礼盒', 配料: '原味+青椒' }
+            }
+        ],
+        filterTags: ['bundle', 'gift', 'hot']
+    }
+];
+function pickLocalProducts(filter) {
+    if (!filter) {
+        return LOCAL_PRODUCTS;
+    }
+    const matched = LOCAL_PRODUCTS.filter((item) => { var _a; return ((_a = item.filterTags) === null || _a === void 0 ? void 0 : _a.includes(filter)); });
+    return matched.length ? matched : LOCAL_PRODUCTS;
+}
 function formatPrice(cents) {
     if (typeof cents !== 'number')
         return '--';
     return `¥${(cents / 100).toFixed(2)}`;
 }
 function buildProductCard(product) {
-    var _a, _b;
     const cover = product.images && product.images.length > 0 ? product.images[0] : DEFAULT_COVER;
+    const local = product;
     const prices = (product.skus || [])
         .map((sku) => (typeof (sku === null || sku === void 0 ? void 0 : sku.price) === 'number' ? sku.price : undefined))
         .filter((price) => typeof price === 'number');
     const minPrice = prices.length ? Math.min(...prices) : 0;
-    const tags = [
-        (_a = product.tags) === null || _a === void 0 ? void 0 : _a[0],
-        (_b = product.tags) === null || _b === void 0 ? void 0 : _b[1],
-        minPrice < 2999 ? '限时优惠' : undefined
-    ].filter(Boolean);
+    const baseSubtitle = product.subtitle || '匠人手工晾晒 · 入口回甘';
+    const subtitle = baseSubtitle.includes('非遗') ? baseSubtitle : `${baseSubtitle} · 非遗古法`;
+    const rawTags = [
+        '非遗古法',
+        '自然晾晒',
+        ...(Array.isArray(product.tags) ? product.tags : []),
+        minPrice < 2999 ? '限时礼遇' : undefined
+    ].filter((tag) => !!tag);
+    const tags = Array.from(new Set(rawTags)).slice(0, 5);
+    const heritageNote = local.heritageNote || '匠人手作';
+    const craftNote = local.craftNote || '竹架晾晒';
     return {
         id: product.id || '',
         title: product.title,
-        subtitle: product.subtitle,
+        subtitle,
         cover,
         minPrice,
         priceLabel: formatPrice(minPrice),
-        tags
+        tags,
+        heritageNote,
+        craftNote
     };
 }
 function buildBundles(product) {
@@ -78,7 +162,7 @@ function buildDiscountTips(product) {
     ];
 }
 const DEFAULT_LOGISTICS = [
-    { label: '仓配', value: '四川/江苏双仓发货' },
+    { label: '仓配', value: '四川中江发货' },
     { label: '时效', value: '默认48小时内发货，节假日除外' },
     { label: '售后', value: '7天无忧退换，客服9:00-22:00在线' }
 ];
@@ -90,7 +174,8 @@ const initialData = {
     activeFilter: FILTER_TABS[0].value,
     bundles: [],
     discountTips: [],
-    logistics: DEFAULT_LOGISTICS
+    logistics: DEFAULT_LOGISTICS,
+    bannerImages: PRODUCT_BANNER_IMAGES
 };
 Page({
     data: Object.assign({}, initialData),
@@ -104,7 +189,11 @@ Page({
             this.setData({ loading: true });
             try {
                 const data = yield (0, api_1.listProducts)(params);
-                const products = (data === null || data === void 0 ? void 0 : data.items) || [];
+                let products = ((data === null || data === void 0 ? void 0 : data.items) || []);
+                if (!products.length) {
+                    const filterValue = params.category;
+                    products = pickLocalProducts(filterValue);
+                }
                 const cards = products.map(buildProductCard);
                 const first = products[0];
                 this.setData({
@@ -116,6 +205,14 @@ Page({
             }
             catch (error) {
                 wx.showToast({ title: '商品加载失败', icon: 'none' });
+                const fallback = pickLocalProducts(params.category);
+                const first = fallback[0];
+                this.setData({
+                    rawProducts: fallback,
+                    items: fallback.map(buildProductCard),
+                    bundles: first ? buildBundles(first) : [],
+                    discountTips: first ? buildDiscountTips(first) : []
+                });
             }
             finally {
                 this.setData({ loading: false });
@@ -159,3 +256,4 @@ Page({
         wx.navigateTo({ url: '/pages/orders/index' });
     }
 });
+

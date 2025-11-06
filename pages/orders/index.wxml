@@ -8,20 +8,37 @@
     <block wx:for="{{displayOrders}}" wx:key="id">
       <view class="order-card">
         <view class="order-header">
-          <view class="order-id">订单号 {{item.id}}</view>
-          <view class="order-status">{{item.statusText}}</view>
+          <view class="order-id">
+            <text class="order-id-label">订单号</text>
+            <text class="order-id-value">{{item.id}}</text>
+          </view>
+          <view class="order-status-pill {{item.statusClass}}">{{item.statusText}}</view>
         </view>
+        <view wx:if="{{item.statusTip}}" class="order-status-tip">{{item.statusTip}}</view>
         <view class="order-body">
-          <block wx:for="{{item.items}}" wx:key="index">
+          <view class="order-body-header">共 {{item.itemCount}} 件商品</view>
+          <block wx:for="{{item.items}}" wx:key="index" wx:for-item="good">
             <view class="order-item">
-              <text class="order-item-title">{{item.title || '未命名商品'}}</text>
-              <text class="order-item-qty">× {{item.qty || 0}}</text>
+              <view class="order-item-info">
+                <text class="order-item-title">{{good.title || '未命名商品'}}</text>
+                <text wx:if="{{good.priceText}}" class="order-item-price">{{good.priceText}}</text>
+              </view>
+              <text class="order-item-qty">× {{good.qty || 0}}</text>
             </view>
           </block>
         </view>
+        <view wx:if="{{item.addressLine || item.recipient}}" class="order-address">
+          <view wx:if="{{item.recipient}}" class="order-recipient">{{item.recipient}}</view>
+          <view wx:if="{{item.addressLine}}" class="order-address-line">{{item.addressLine}}</view>
+        </view>
         <view class="order-footer">
-          <view class="order-total">合计 {{item.total}}</view>
-          <view wx:if="{{item.createdAt}}" class="order-time">{{item.createdAt}}</view>
+          <view class="order-total-wrap">
+            <text class="order-total-label">实付</text>
+            <text class="order-total">{{item.total}}</text>
+          </view>
+          <view class="order-meta">
+            <view wx:if="{{item.createdAt}}" class="order-time">{{item.createdAt}}</view>
+          </view>
         </view>
       </view>
     </block>

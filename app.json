@@ -1,10 +1,12 @@
 {
   "pages": [
+    "pages/login/index",
     "pages/home/index",
     "pages/hall/index",
     "pages/products/index",
     "pages/community/index",
     "pages/profile/index",
+    "pages/settings/index",
     "pages/orders/index",
     "pages/trace/index",
     "pages/booking/index",
@@ -18,22 +20,32 @@
     "backgroundTextStyle": "dark"
   },
   "tabBar": {
+    "color": "#887B6A",
+    "selectedColor": "#DCB58B",
     "list": [
       {
         "pagePath": "pages/home/index",
-        "text": "面里"
+        "text": "面里",
+        "iconPath": "assets/images/tab-bar/tab-home.png",
+        "selectedIconPath": "assets/images/tab-bar/tab-home-active.png"
       },
       {
         "pagePath": "pages/hall/index",
-        "text": "非遗"
+        "text": "非遗",
+        "iconPath": "assets/images/tab-bar/tab-heritage.png",
+        "selectedIconPath": "assets/images/tab-bar/tab-heritage-active.png"
       },
       {
         "pagePath": "pages/products/index",
-        "text": "精选"
+        "text": "精选",
+        "iconPath": "assets/images/tab-bar/tab-products.png",
+        "selectedIconPath": "assets/images/tab-bar/tab-products-active.png"
       },
       {
         "pagePath": "pages/profile/index",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "assets/images/tab-bar/tab-profile.png",
+        "selectedIconPath": "assets/images/tab-bar/tab-profile-active.png"
       }
     ]
   },

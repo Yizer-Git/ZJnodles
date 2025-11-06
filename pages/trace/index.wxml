@@ -65,9 +65,53 @@
     <button class="feedback-btn pill-btn pill-btn--primary" bindtap="openFeedback">发现异常，提交质检反馈</button>
   </view>
 
-  <view wx:if="{{!loading && !batch}}" class="placeholder">
-    <text>输入批次码或扫一扫包装码，查看完整溯源链路。</text>
-  </view>
+  <block wx:if="{{!loading && !batch}}">
+    <view class="placeholder">
+      <text>输入批次码或扫一扫包装码，查看完整溯源链路。</text>
+    </view>
+
+    <view class="sample-section">
+      <text class="sample-title">示例批次 · 实景数据</text>
+      <text class="sample-desc">以下为中江挂面链上真实案例，帮助你了解可追溯信息的呈现方式。</text>
+
+      <block wx:for="{{sampleBatches}}" wx:key="batchCode">
+        <view class="sample-card surface-card surface-card--frosted">
+          <view class="sample-card__header">
+            <view class="sample-card__meta">
+              <text class="sample-batch">{{item.batchCode}}</text>
+              <text class="sample-product">{{item.productName}}</text>
+            </view>
+            <text class="sample-status">{{item.statusLabel}}</text>
+          </view>
+
+          <view class="sample-info">
+            <text>产地：{{item.origin}}</text>
+            <text>收割：{{item.harvestDate}}</text>
+            <text>上链：{{item.chainTimestamp}}</text>
+          </view>
+
+          <text class="sample-summary">{{item.qualitySummary}}</text>
+
+          <view class="sample-tags">
+            <block wx:for="{{item.highlights}}" wx:key="*this">
+              <text class="sample-tag">{{item}}</text>
+            </block>
+          </view>
+
+          <view class="sample-timeline">
+            <text class="timeline-title">链路节点</text>
+            <block wx:for="{{item.chainRecords}}" wx:key="time">
+              <view class="timeline-item">
+                <text class="timeline-step">{{item.step}}</text>
+                <text class="timeline-detail">{{item.detail}}</text>
+                <text class="timeline-meta">{{item.time}} · {{item.operator}}</text>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
 
   <view wx:if="{{showFeedback}}" class="feedback-dialog">
     <view class="dialog-content surface-card surface-card--frosted">

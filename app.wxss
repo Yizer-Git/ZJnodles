@@ -1,12 +1,19 @@
 @import "styles/design-system.wxss";
 
+page {
+  background-color: #fbf7f0;
+  color: #333333;
+}
+
 .page {
+  background-color: transparent;
   padding: 48rpx 32rpx 120rpx;
 }
 
+
 .surface-card {
   background: #ffffff;
-  border-radius: 24rpx;
+  border-radius: 20rpx;
   padding: 32rpx;
   box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
   border: 1rpx solid rgba(148, 163, 184, 0.18);
@@ -20,9 +27,9 @@
 }
 
 .surface-card--accent {
-  background: linear-gradient(135deg, #00bcd4, #00a3b5);
-  color: #ffffff;
-  box-shadow: 0 32rpx 90rpx rgba(0, 188, 212, 0.45);
+  background: linear-gradient(135deg, #e6d6c0, #ddc4a2);
+  color: #333333;
+  box-shadow: 0 32rpx 80rpx rgba(204, 181, 156, 0.35);
 }
 
 .section {
@@ -52,13 +59,13 @@
 .section-subtitle {
   display: block;
   margin-top: 8rpx;
-  color: #999999;
+  color: #888888;
   font-size: 24rpx;
 }
 
 .section-action {
   font-size: 26rpx;
-  color: #00bcd4;
+  color: #c2a88a;
   font-weight: 500;
 }
 
@@ -83,38 +90,57 @@
 .stat-value {
   font-size: 34rpx;
   font-weight: 700;
-  color: #00bcd4;
+  color: #c2a88a;
 }
 
 .stat-label {
   margin-top: 8rpx;
   font-size: 24rpx;
-  color: #999999;
+  color: #888888;
 }
 
 .pill-btn,
 .ds-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 24rpx;
-  padding: 0 32rpx;
   height: 68rpx;
-  line-height: 68rpx;
+  line-height: 1;
   font-size: 26rpx;
   text-align: center;
   font-weight: 500;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+button.pill-btn,
+button.ds-pill {
+  padding: 0 32rpx;
+}
+
+button.pill-btn[size='mini'],
+button.ds-pill[size='mini'] {
+  height: 56rpx;
+  min-height: 56rpx;
+}
+
+button.pill-btn::after,
+button.ds-pill::after {
+  display: none;
 }
 
 .pill-btn--primary,
 .ds-pill--primary {
-  background: linear-gradient(135deg, #00bcd4, #00a3b5);
-  color: #ffffff;
-  box-shadow: 0 16rpx 40rpx rgba(0, 188, 212, 0.28);
+  background: linear-gradient(135deg, #d8c4ab, #c2a88a);
+  color: #fff9f1;
+  box-shadow: 0 16rpx 40rpx rgba(194, 168, 138, 0.32);
 }
 
-.pill-btn--ghost,
-.ds-pill--ghost {
-  background: rgba(255, 255, 255, 0.9);
-  color: #333333;
-  border: 1rpx solid rgba(148, 163, 184, 0.18);
+.pill-btn--accent {
+  background: linear-gradient(135deg, rgba(220, 181, 139, 0.92), rgba(201, 143, 99, 0.92));
+  color: #ffffff;
+  box-shadow: 0 16rpx 40rpx rgba(220, 181, 139, 0.92);
 }
 
 .tag,
@@ -124,8 +150,8 @@
   padding: 6rpx 16rpx;
   font-size: 22rpx;
   border-radius: 999rpx;
-  background: rgba(0, 188, 212, 0.1);
-  color: #00bcd4;
+  background: #e6ded5;
+  color: #333333;
 }
 
 .surface-chip,
@@ -160,11 +186,11 @@
 }
 
 .text-muted {
-  color: #999999;
+  color: #888888;
 }
 
 .text-success {
-  color: #00bcd4;
+  color: #a5b4a1;
 }
 
 .text-warning {

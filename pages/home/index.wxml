@@ -1,14 +1,100 @@
 <view class="ds-page home-page">
+  <image class="home-page__bg" mode="aspectFill" src="{{backgrounds.generic}}"></image>
+  <view class="home-page__content">
   <view class="home-search surface-card surface-card--frosted" bindtap="goSearch">
-    <text class="search-icon">🔍</text>
+    <image
+      class="search-icon-img"
+      mode="aspectFit"
+      src="/assets/images/icons/search.svg"
+    ></image>
     <text class="search-placeholder">搜“麦香礼盒”或“晾晒工艺”</text>
   </view>
 
   <view class="home-banner">
-    <view class="banner-content">
-      <text class="banner-eyebrow">非遗面里 · 麦穗岁月</text>
-      <text class="banner-title">中江挂面 · 古法回甘</text>
-      <text class="banner-subtitle">跟随传承人的手作步伐，体验晾晒的暖风与麦香。</text>
+    <image class="home-banner__image" mode="widthFix" src="{{backgrounds.core}}"></image>
+  </view>
+
+  <view class="ds-section">
+    <view class="section-card ds-card story-card">
+      <view class="section-card__header">
+        <text class="section-card__title">非遗故事集</text>
+        <text class="section-card__subtitle">传承人、古法瞬间、乡土风物每日更新</text>
+      </view>
+
+      <view class="sub-tabs" wx:if="{{storyTabs.length}}">
+        <block wx:for="{{storyTabs}}" wx:key="*this">
+          <view
+            class="sub-tab-item {{activeStoryTab === item ? 'active' : ''}}"
+            data-tab="{{item}}"
+            bindtap="handleStoryTabChange"
+          >
+            {{item}}
+          </view>
+        </block>
+      </view>
+
+      <block wx:if="{{loading && !displayStories.length}}">
+        <block wx:for="{{[1,2,3]}}" wx:key="*this">
+          <view class="feed-card-large ds-card ds-shimmer skeleton-story"></view>
+        </block>
+      </block>
+      <block wx:else>
+        <block wx:for="{{displayStories}}" wx:key="id">
+          <view class="feed-card-large ds-card surface-card">
+            <image
+              class="feed-cover-lg"
+              mode="aspectFill"
+              src="{{item.cover || 'https://dummyimage.com/640x400/cdeff5/0097a7&text=Heritage'}}"
+            ></image>
+            <view class="feed-meta-content">
+              <view class="feed-meta-top">
+                <view class="feed-tag feed-tag-new">{{item.categoryLabel || '非遗'}}</view>
+                <view class="feed-views">
+                  <image
+                    class="feed-stat-icon"
+                    mode="aspectFit"
+                    src="/assets/images/icons/view.svg"
+                  ></image>
+                  <text class="feed-views-count">{{item.views || 0}}</text>
+                </view>
+              </view>
+              <text class="feed-title-lg">{{item.title}}</text>
+              <text class="feed-subtitle-lg" wx:if="{{item.description}}">{{item.description}}</text>
+              <view class="feed-actions-lg">
+                <view class="feed-author-meta">
+                  <image
+                    class="author-avatar"
+                    mode="aspectFill"
+                    src="{{item.authorAvatar || '/assets/avatar-placeholder.jpg'}}"
+                  ></image>
+                  <view class="feed-author-text">
+                    <text class="author-name">{{item.authorName || '匠人顾问'}}</text>
+                    <text class="author-title">{{item.categoryLabel || '非遗故事'}}</text>
+                  </view>
+                </view>
+                <view class="feed-stats">
+                  <view class="feed-stat-item">
+                    <image
+                    class="feed-stat-icon"
+                    mode="aspectFit"
+                    src="/assets/images/icons/like.svg"
+                  ></image>
+                    <text>{{item.likes || 0}}</text>
+                  </view>
+                  <view class="feed-stat-item">
+                    <image
+                    class="feed-stat-icon"
+                    mode="aspectFit"
+                    src="/assets/images/icons/feedback.svg"
+                  ></image>
+                    <text>{{item.comments || 0}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </block>
     </view>
   </view>
 
@@ -16,39 +102,71 @@
     <view class="actions-card ds-card">
       <view class="ds-section__header actions-header">
         <text class="ds-title">核心数字服务</text>
-        <text class="ds-subtitle">文旅、溯源、商城一站式入口</text>
+        <text class="ds-subtitle">  文旅、溯源、商城一站式入口</text>
       </view>
       <view class="action-grid">
         <view class="action-item" bindtap="goCommunity">
-          <text class="action-icon action-icon--accent">🌟</text>
+          <image
+            class="action-icon-img"
+            mode="aspectFit"
+            src="/assets/images/icons/collection.svg"
+          ></image>
           <text class="action-title">社区任务</text>
         </view>
         <view class="action-item" bindtap="goStudy">
-          <text class="action-icon action-icon--primary">📅</text>
+          <image
+            class="action-icon-img"
+            mode="aspectFit"
+            src="/assets/images/icons/calendar.svg"
+          ></image>
           <text class="action-title">研学预约</text>
         </view>
         <view class="action-item" bindtap="goTrace">
-          <text class="action-icon action-icon--primary">🔗</text>
+          <image
+            class="action-icon-img"
+            mode="aspectFit"
+            src="/assets/images/icons/link.svg"
+          ></image>
           <text class="action-title">区块链溯源</text>
         </view>
         <view class="action-item" bindtap="goProducts">
-          <text class="action-icon action-icon--primary">🛍️</text>
+          <image
+            class="action-icon-img"
+            mode="aspectFit"
+            src="/assets/images/icons/store.svg"
+          ></image>
           <text class="action-title">商城精选</text>
         </view>
         <view class="action-item" bindtap="goHeritageStory">
-          <text class="action-icon">📜</text>
+          <image
+            class="action-icon-img"
+            mode="aspectFit"
+            src="/assets/images/icons/heritage.svg"
+          ></image>
           <text class="action-title">非遗故事</text>
         </view>
         <view class="action-item" bindtap="goCraftProcess">
-          <text class="action-icon">🛠️</text>
+          <image
+            class="action-icon-img"
+            mode="aspectFit"
+            src="/assets/images/icons/time.svg"
+          ></image>
           <text class="action-title">制作工艺</text>
         </view>
         <view class="action-item" bindtap="goMasterArchive">
-          <text class="action-icon">👥</text>
+          <image
+            class="action-icon-img"
+            mode="aspectFit"
+            src="/assets/images/icons/profile.svg"
+          ></image>
           <text class="action-title">传承档案</text>
         </view>
         <view class="action-item" bindtap="goEnterprise">
-          <text class="action-icon">🤝</text>
+          <image
+            class="action-icon-img"
+            mode="aspectFit"
+            src="/assets/images/icons/view.svg"
+          ></image>
           <text class="action-title">企业合作</text>
         </view>
       </view>
@@ -103,11 +221,12 @@
               <text class="operation-status {{item.online ? 'online' : 'offline'}}">
                 {{item.online ? '在线' : '筹备中'}}
               </text>
-            </view>
-            <text class="operation-desc">{{item.description || '匠心主题活动上新筹备中'}}</text>
           </view>
-        </block>
+          <text class="operation-desc">{{item.description || '匠心主题活动上新筹备中'}}</text>
+        </view>
       </block>
+    </block>
+      <button class="card-more-btn ds-pill ds-pill--primary" bindtap="goOps">打开运营后台</button>
     </view>
   </view>
 
@@ -146,29 +265,6 @@
     </view>
   </view>
 
-  <view class="ds-section">
-    <view class="section-card ds-card">
-      <view class="section-card__header">
-        <text class="section-card__title">非遗故事集</text>
-        <text class="section-card__subtitle">传承人、古法瞬间、乡土风物每日更新</text>
-      </view>
-      <block wx:if="{{loading && !cultureStories.length}}">
-        <block wx:for="{{[1,2,3,4]}}" wx:key="*this">
-          <view class="content-card ds-card ds-shimmer"></view>
-        </block>
-      </block>
-      <block wx:else>
-        <block wx:for="{{cultureStories}}" wx:key="id">
-          <view class="content-card ds-card ds-motif">
-            <text class="content-category">{{item.categoryLabel || '非遗'}}</text>
-            <text class="content-title">{{item.title}}</text>
-            <text class="content-desc">{{item.description}}</text>
-          </view>
-        </block>
-      </block>
-    </view>
-  </view>
-
   <view wx:if="{{showCampaign && campaign}}" class="campaign-overlay">
     <view class="campaign-card ds-card ds-card--frosted ds-motif">
       <text class="campaign-title">{{campaign.title}}</text>
@@ -180,7 +276,5 @@
     </view>
   </view>
 
-  <view class="fab-wrapper" bindtap="goTrace">
-    <text class="fab-icon">＋</text>
   </view>
 </view>

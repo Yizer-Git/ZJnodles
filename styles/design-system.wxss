@@ -1,15 +1,11 @@
-page {
-  background: #f8f8f8;
-  color: #333333;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-    "Microsoft YaHei", sans-serif;
-}
-
 .ds-page {
   min-height: 100vh;
   padding: 48rpx 32rpx 120rpx;
   box-sizing: border-box;
+  background-color: #fbf7f0;
 }
+
+
 
 .ds-section {
   margin-bottom: 48rpx;
@@ -29,7 +25,7 @@ page {
 .ds-subtitle {
   margin-top: 8rpx;
   font-size: 24rpx;
-  color: #999999;
+  color: #888888;
   line-height: 1.6;
 }
 
@@ -48,9 +44,9 @@ page {
 }
 
 .ds-card--accent {
-  background: linear-gradient(145deg, #00bcd4, #00a3b5);
-  color: #fff;
-  box-shadow: 0 32rpx 80rpx rgba(0, 188, 212, 0.35);
+  background: linear-gradient(135deg, #e6d6c0, #ddc4a2);
+  color: #333333;
+  box-shadow: 0 32rpx 80rpx rgba(204, 181, 156, 0.32);
   border: none;
 }
 
@@ -88,37 +84,42 @@ page {
   padding: 6rpx 18rpx;
   border-radius: 999rpx;
   font-size: 22rpx;
-  background: rgba(0, 188, 212, 0.12);
-  color: #00bcd4;
-  border: 1rpx solid rgba(0, 188, 212, 0.24);
+  background: #e6ded5;
+  color: #333333;
+  border: 1rpx solid #d8cec4;
   margin-right: 12rpx;
   margin-bottom: 12rpx;
 }
 
 .ds-chip--ghost {
-  background: rgba(15, 23, 42, 0.05);
-  color: #475467;
-  border-color: rgba(148, 163, 184, 0.24);
+  background: rgba(255, 255, 255, 0.82);
+  color: #555555;
+  border-color: rgba(200, 191, 182, 0.4);
 }
 
 .ds-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 24rpx;
   height: 68rpx;
-  line-height: 68rpx;
+  line-height: 1;
   font-size: 28rpx;
   text-align: center;
   font-weight: 500;
+  padding: 0 32rpx;
+  box-sizing: border-box;
 }
 
 .ds-pill--primary {
-  background: linear-gradient(135deg, #00bcd4, #00a3b5);
-  color: #fff;
-  box-shadow: 0 18rpx 50rpx rgba(0, 188, 212, 0.28);
+  background: linear-gradient(135deg, #d8c4ab, #c2a88a);
+  color: #fff9f1;
+  box-shadow: 0 18rpx 50rpx rgba(194, 168, 138, 0.3);
 }
 
 .ds-pill--ghost {
   background: rgba(255, 255, 255, 0.88);
-  color: #333333;
+  color: #38220f;
   border: 1rpx solid rgba(148, 163, 184, 0.18);
 }
 
@@ -139,13 +140,13 @@ page {
 .ds-stat__value {
   font-size: 34rpx;
   font-weight: 600;
-  color: #00bcd4;
+  color: #c2a88a;
 }
 
 .ds-stat__label {
   margin-top: 8rpx;
   font-size: 24rpx;
-  color: #999999;
+  color: #888888;
 }
 
 .ds-shimmer {
@@ -166,7 +167,7 @@ page {
 .ds-empty {
   padding: 80rpx 24rpx;
   text-align: center;
-  color: #999999;
+  color: #887b6a;
   border-radius: 24rpx;
   background: rgba(255, 255, 255, 0.92);
   border: 1rpx dashed rgba(148, 163, 184, 0.45);
@@ -181,6 +182,6 @@ page {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  border: 2rpx dashed rgba(0, 188, 212, 0.2);
+  border: 2rpx dashed rgba(147, 165, 76, 0.3);
   pointer-events: none;
 }

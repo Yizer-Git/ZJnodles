@@ -1,35 +1,126 @@
-<view class="page">
-  <view class="header-card surface-card surface-card--accent">
+<view class="profile-page">
+  <view class="profile-header surface-card surface-card--accent">
     <view class="user-info">
-      <open-data type="userAvatarUrl" class="avatar"></open-data>
+      <image class="avatar" mode="aspectFill" src="{{avatarUrl}}"></image>
       <view class="user-meta">
-        <open-data type="userNickName" class="nickname"></open-data>
-        <text class="desc">欢迎来到中江挂面数字服务中心</text>
+        <text class="nickname">{{displayName}}</text>
+        <text class="member-tier-text">{{memberTierLabel}}</text>
+        <text class="member-summary-text">{{memberSummary}}</text>
+        <text class="greeting">欢迎来到中江挂面数字服务中心</text>
+      </view>
+      <view class="settings-trigger" bindtap="handleSettingsTap" hover-class="settings-trigger--active" hover-stay-time="60">
+        <image class="settings-icon-img" mode="aspectFit" src="/assets/images/icons/settings.svg"></image>
       </view>
     </view>
-    <view class="stat-grid">
-      <view class="stat-item">
-        <text class="stat-value">{{member && member.points ? member.points : 0}}</text>
-        <text class="stat-label">积分</text>
+    <view class="vip-inline ds-card">
+      <view class="vip-inline-meta">
+        <view class="vip-inline-badge">
+          <text class="vip-inline-icon">👑</text>
+          <text class="vip-inline-label">甄选会员</text>
+        </view>
+        <text class="vip-inline-desc">{{vipSubtitle}}</text>
       </view>
-      <view class="stat-item">
-        <text class="stat-value">{{member && member.level ? member.level : 0}}</text>
-        <text class="stat-label">会员等级</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">{{ops && ops.pendingTasks ? ops.pendingTasks : 0}}</text>
-        <text class="stat-label">待办</text>
-      </view>
+      <button class="vip-inline-btn ds-pill" size="mini" bindtap="handleVipAction">{{vipActionLabel}}</button>
     </view>
   </view>
 
-  <view class="section">
-    <view class="section-header">
-      <text class="section-title">快捷服务</text>
-      <text class="section-subtitle">订单、预约、企业服务一站式入口</text>
+  <view class="stats-card ds-card">
+    <view class="stats-item">
+      <text class="stats-value">{{memberPointsDisplay}}</text>
+      <text class="stats-label">积分</text>
     </view>
-    <block wx:for="{{entries}}" wx:key="id">
-      <view class="entry-card surface-card surface-card--frosted" bindtap="handleEntryTap" data-path="{{item.path}}" data-tab="{{item.tab}}">
+    <view class="stats-divider"></view>
+    <view class="stats-item stats-item--tier">
+      <text class="stats-value stats-value-tier">{{memberTierLabel}}</text>
+      <text class="stats-label">会员等级</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <text class="stats-value">{{memberCouponCount}}</text>
+      <text class="stats-label">专属券</text>
+    </view>
+  </view>
+
+  <view class="data-overview">
+    <view class="data-grid ds-grid ds-grid--2">
+      <view class="data-half-card ds-card data-card-accent">
+        <text class="data-title">甄选积分</text>
+        <text class="data-value">{{memberPointsDisplay}}</text>
+        <text class="data-caption">{{memberCaption}}</text>
+      </view>
+      <view class="data-half-card ds-card">
+        <text class="data-title">会员成长值</text>
+        <view class="progress-bar-wrapper">
+          <progress class="member-progress" percent="{{growthPercent}}" show-info stroke-width="8" activeColor="#B45309"></progress>
+        </view>
+        <text class="data-caption">距离 LV{{nextLevel}} 还需 {{growthRemaining}} 点</text>
+      </view>
+    </view>
+    <view class="badge-row">
+      <block wx:for="{{badges}}" wx:key="id">
+        <view class="badge-chip {{item.accent ? 'badge-chip--accent' : ''}}">
+          <text class="badge-label">{{item.label}}</text>
+          <text class="badge-value">{{item.value}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="service-card ds-card">
+    <view class="service-header">
+      <text class="service-title">核心服务</text>
+      <text class="service-subtitle">订单、研学、溯源一触即达</text>
+    </view>
+    <view class="service-grid">
+      <block wx:for="{{coreServices}}" wx:key="id">
+        <view class="service-item" bindtap="handleEntryTap" data-path="{{item.path}}" data-tab="{{item.tab}}">
+        <view class="service-icon">
+          <image class="service-icon-img" mode="aspectFit" src="{{item.icon || '/assets/images/icons/classic-chinese/circular-totem.svg'}}"></image>
+        </view>
+          <text class="service-name">{{item.title}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="promotion-card">
+    <view class="promotion-long-card ds-card surface-card--frosted" bindtap="handleEntryTap" data-path="/pages/hall/index">
+      <view class="promotion-left">
+        <text class="promotion-icon">🌾</text>
+        <view class="promotion-text">
+          <text class="promotion-title">中江挂面制作工艺</text>
+          <text class="promotion-subtitle">查看非遗纪录片，了解古法精髓</text>
+        </view>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="ops-card ds-card ds-card--frosted">
+    <view class="ops-header">
+      <text class="ops-title">运营概览</text>
+      <text class="ops-subtitle">CMS内容、OMS订单、风控日志</text>
+    </view>
+    <view class="ops-row">
+      <text>动态运营位</text>
+      <text class="ops-highlight">{{ops && ops.operations && ops.operations.onlineSlots ? ops.operations.onlineSlots : 0}} 个上线</text>
+    </view>
+    <view class="ops-row">
+      <text>待审核UGC</text>
+      <text class="ops-highlight">{{ops && ops.moderation && ops.moderation.pending ? ops.moderation.pending : 0}} 条</text>
+    </view>
+    <view class="ops-row">
+      <text>异常预警</text>
+      <text class="ops-highlight">{{ops && ops.alerts && ops.alerts.today ? ops.alerts.today : 0}} 条</text>
+    </view>
+    <button class="contact-btn ds-pill ds-pill--primary" bindtap="handleContactOps">联系运营与客服</button>
+  </view>
+
+  <view wx:if="{{moreServices.length}}" class="list-section">
+    <text class="list-title">常用工具</text>
+    <block wx:for="{{moreServices}}" wx:key="id">
+      <view class="entry-list-item" bindtap="handleEntryTap" data-path="{{item.path}}" data-tab="{{item.tab}}">
+        <text class="entry-icon">▸</text>
         <view class="entry-content">
           <text class="entry-title">{{item.title}}</text>
           <text class="entry-desc">{{item.description}}</text>
@@ -37,27 +128,5 @@
         <text class="entry-arrow">›</text>
       </view>
     </block>
-  </view>
-
-  <view class="section">
-    <view class="section-header">
-      <text class="section-title">运营概览</text>
-      <text class="section-subtitle">CMS内容、OMS订单、风控日志</text>
-    </view>
-    <view class="ops-card surface-card surface-card--frosted">
-      <view class="ops-row">
-        <text>动态运营位</text>
-        <text class="highlight">{{ops && ops.operations && ops.operations.onlineSlots ? ops.operations.onlineSlots : 0}}个上线</text>
-      </view>
-      <view class="ops-row">
-        <text>待审核UGC</text>
-        <text class="highlight">{{ops && ops.moderation && ops.moderation.pending ? ops.moderation.pending : 0}}条</text>
-      </view>
-      <view class="ops-row">
-        <text>异常预警</text>
-        <text class="highlight">{{ops && ops.alerts && ops.alerts.today ? ops.alerts.today : 0}}条</text>
-      </view>
-      <button class="contact-btn pill-btn pill-btn--primary" bindtap="handleContactOps">联系运营与客服</button>
-    </view>
   </view>
 </view>

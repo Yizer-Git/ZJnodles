@@ -1,4 +1,147 @@
 <view class="page">
+  <image class="page__bg" mode="aspectFill" src="{{backgrounds.generic}}"></image>
+  <view class="page__content">
+  <view class="section-header">
+    <text class="section-title">传习导览</text>
+    <text class="section-subtitle">快速进入馆内亮点</text>
+  </view>
+  <view class="heritage-nav-grid">
+    <block wx:for="{{navCards}}" wx:key="id">
+      <view
+        class="heritage-nav-item surface-card surface-card--frosted"
+        data-id="{{item.id}}"
+        bindtap="handleNavTap"
+      >
+        <image class="heritage-nav-icon" mode="aspectFit" src="{{item.icon}}"></image>
+        <text class="heritage-nav-title">{{item.title}}</text>
+        <text class="heritage-nav-desc">{{item.desc}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="section-header">
+    <text class="section-title">馆内焦点</text>
+    <text class="section-subtitle">真实场景 · 数据看板 · 匠心精选</text>
+  </view>
+  <view class="heritage-focus-list">
+    <block wx:for="{{heritageFocusCards}}" wx:key="id">
+      <view
+        class="heritage-focus-card surface-card surface-card--frosted"
+        data-id="{{item.id}}"
+        bindtap="handleFocusCardTap"
+      >
+        <view class="heritage-focus-head">
+          <text class="heritage-focus-title">{{item.title}}</text>
+          <text class="heritage-focus-desc">{{item.desc}}</text>
+        </view>
+        <view class="heritage-focus-highlights" wx:if="{{item.highlights && item.highlights.length}}">
+          <block wx:for="{{item.highlights}}" wx:key="*this">
+            <view class="heritage-focus-chip">{{item}}</view>
+          </block>
+        </view>
+        <button
+          wx:if="{{item.cta && item.cta.text}}"
+          class="pill-btn pill-btn--accent heritage-focus-cta"
+          data-id="{{item.id}}"
+          catchtap="handleFocusCardTap"
+        >
+          {{item.cta.text}}
+        </button>
+      </view>
+    </block>
+  </view>
+
+  <view class="heritage-divider heritage-divider--totem" style="background-image: url({{hallPatterns.circularTotem}});"></view>
+
+  <view class="section-header">
+    <text class="section-title">匠心慢读</text>
+    <text class="section-subtitle">茶叙故事 · 沉浸夜读</text>
+  </view>
+  <scroll-view class="heritage-story-scroll" scroll-x>
+    <block wx:for="{{storyPanels}}" wx:key="id">
+      <view
+        class="heritage-story-card surface-card surface-card--frosted"
+        data-id="{{item.id}}"
+        bindtap="handleStoryTap"
+      >
+        <image class="heritage-story-icon" mode="aspectFit" src="{{item.icon}}"></image>
+        <text class="heritage-story-title">{{item.title}}</text>
+        <text class="heritage-story-desc">{{item.desc}}</text>
+      </view>
+    </block>
+  </scroll-view>
+
+  <view class="heritage-divider heritage-divider--frame" style="background-image: url({{hallPatterns.imperialRoundFrame}});"></view>
+
+  <view class="section-header">
+    <text class="section-title">非遗资讯</text>
+    <text class="section-subtitle">匠心故事 · 活动速递</text>
+  </view>
+  <view class="sub-tabs" wx:if="{{feedTabs.length > 1}}">
+    <block wx:for="{{feedTabs}}" wx:key="*this">
+      <view
+        class="sub-tab-item {{activeFeedTab === item ? 'active' : ''}}"
+        data-tab="{{item}}"
+        bindtap="handleFeedTabChange"
+      >
+        {{item}}
+      </view>
+    </block>
+  </view>
+  <block wx:if="{{displayFeeds.length === 0}}">
+    <view class="feed-empty surface-card surface-card--frosted">暂无资讯，敬请期待</view>
+  </block>
+  <block wx:else>
+    <block wx:for="{{displayFeeds}}" wx:key="id">
+      <view class="feed-card-large surface-card">
+        <image
+          class="feed-cover-lg"
+          mode="aspectFill"
+          src="{{item.cover ? item.cover : '/assets/images/promo-images/0.png'}}"
+        ></image>
+        <view class="feed-meta-content">
+          <view class="feed-meta-top">
+            <view class="feed-tag feed-tag-new" wx:if="{{item.tag || item.category}}">
+              {{item.tag ? item.tag : item.category}}
+            </view>
+            <text class="feed-time">{{item.publishTimeText ? item.publishTimeText : '刚刚更新'}}</text>
+          </view>
+          <text class="feed-title-lg">{{item.title}}</text>
+          <text class="feed-subtitle-lg" wx:if="{{item.summary}}">{{item.summary}}</text>
+          <view class="feed-actions-lg">
+            <view class="feed-author-meta">
+              <image
+                class="feed-avatar-sm"
+                mode="aspectFill"
+                src="{{item.authorAvatar ? item.authorAvatar : '/assets/avatar-placeholder.jpg'}}"
+              ></image>
+              <view class="feed-author-text">
+                <text class="feed-author">{{item.authorName ? item.authorName : '馆内顾问'}}</text>
+                <text class="feed-author-role">
+                  {{item.authorRole ? item.authorRole : '非遗讲述者'}}
+                </text>
+              </view>
+            </view>
+            <view class="feed-stats">
+              <view class="feed-stat-item">
+                <text class="feed-stat-icon">👁</text>
+                <text class="feed-stat-value">{{item.views ? item.views : 0}}</text>
+              </view>
+              <view class="feed-stat-item">
+                <text class="feed-stat-icon">👍</text>
+                <text class="feed-stat-value">{{item.likes ? item.likes : 0}}</text>
+              </view>
+              <view class="feed-stat-item">
+                <text class="feed-stat-icon">💬</text>
+                <text class="feed-stat-value">{{item.comments ? item.comments : 0}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </block>
+
   <view class="section-header">
     <text class="section-title">沉浸式体验</text>
     <text class="section-subtitle">3D工艺流程、互动机位、导览路线</text>
@@ -22,6 +165,30 @@
     </block>
   </scroll-view>
 
+  <view class="heritage-divider heritage-divider--lattice" style="background-image: url({{hallPatterns.displayShelf}});"></view>
+
+  <view class="section-header">
+    <text class="section-title">来馆服务</text>
+    <text class="section-subtitle">预约等候 · 礼遇指引</text>
+  </view>
+  <view class="heritage-service-grid">
+    <block wx:for="{{serviceCards}}" wx:key="id">
+      <view
+        class="heritage-service-card surface-card surface-card--frosted"
+        data-id="{{item.id}}"
+        bindtap="handleServiceTap"
+      >
+        <image class="heritage-service-icon" mode="aspectFit" src="{{item.icon}}"></image>
+        <view class="heritage-service-text">
+          <text class="heritage-service-title">{{item.title}}</text>
+          <text class="heritage-service-desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="heritage-divider heritage-divider--border" style="background-image: url({{hallPatterns.imperialSquareFrame}});"></view>
+
   <view class="section-header mission">
     <text class="section-title">闯关任务</text>
     <button class="mission-btn pill-btn pill-btn--primary" bindtap="openMissionDrawer">查看任务</button>
@@ -31,7 +198,7 @@
     <text class="section-title">徽章中心</text>
     <text class="section-subtitle">收藏你的专属荣誉</text>
   </view>
-  <view class="badge-grid">
+  <view class="badge-grid heritage-badge-grid">
     <block wx:for="{{badges}}" wx:key="id">
       <view class="badge-card surface-card surface-card--frosted">
         <image class="badge-icon" mode="aspectFit" src="{{item.icon}}"></image>
@@ -69,5 +236,6 @@
         </block>
       </scroll-view>
     </view>
+  </view>
   </view>
 </view>

@@ -1,8 +1,12 @@
 <view class="page">
-  <view class="header surface-card surface-card--frosted">
+  <view class="header surface-card surface-card--accent">
     <view class="header-text">
+      <view class="header-badge">
+        <text class="badge-icon">🌾</text>
+        <text class="badge-label">文旅研学</text>
+      </view>
       <text class="title">中江非遗研学营</text>
-      <text class="subtitle">严选日历排期，线上线下联动</text>
+      <text class="subtitle">严选日历排期 · 古法工坊沉浸体验</text>
     </view>
     <picker mode="date" value="{{currentDate}}" bindchange="handleDateChange">
       <view class="date-picker surface-chip">
@@ -26,17 +30,24 @@
       <view class="empty surface-card surface-card--frosted">该日期暂无研学活动，欢迎预约其他日期</view>
     </block>
     <block wx:else>
-      <block wx:for="{{sessions}}" wx:key="id">
+      <!-- 只展示前两个日程，避免页面过长 -->
+      <block wx:for="{{sessions.slice(0,2)}}" wx:key="id">
         <view class="session-card surface-card">
           <view class="session-head">
             <text class="session-time">{{item.startTimeText}} - {{item.endTimeText}}</text>
-            <text class="session-status">{{item.statusLabel}}</text>
+            <view class="session-tags">
+              <text class="session-chip session-chip--status">{{item.statusLabel}}</text>
+              <text class="session-chip session-chip--location">{{item.location}}</text>
+            </view>
           </view>
-          <text class="session-title">{{item.title}}</text>
-          <text class="session-desc">{{item.description}}</text>
+          <!-- 标题保持醒目，内容换行显示 -->
+          <view class="session-body">
+            <text class="session-title">{{item.title}}</text>
+            <text class="session-desc">{{item.description}}</text>
+          </view>
           <view class="session-meta">
-            <text>地点：{{item.location}}</text>
-            <text>剩余名额：{{item.remaining}}</text>
+            <text class="meta-label">剩余名额</text>
+            <text class="meta-value">{{item.remaining}}</text>
           </view>
           <view class="session-actions">
             <button class="pill-btn pill-btn--ghost" size="mini" bindtap="bookSession" data-id="{{item.id}}">预约</button>
@@ -57,9 +68,11 @@
     </block>
     <block wx:else>
       <block wx:for="{{notices}}" wx:key="id">
-        <view class="notice-card surface-card">
-          <text class="notice-title">{{item.title}}</text>
-          <text class="notice-time">{{item.publishTimeText}}</text>
+        <view class="notice-card surface-card surface-card--frosted">
+          <view class="notice-head">
+            <text class="notice-title">{{item.title}}</text>
+            <text class="notice-time">{{item.publishTimeText}}</text>
+          </view>
           <text class="notice-content">{{item.content}}</text>
         </view>
       </block>

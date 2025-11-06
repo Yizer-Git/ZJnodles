@@ -230,8 +230,8 @@ export function updateCurrentUser(payload: UserUpdatePayload) {
 }
 
 type ListContentsOperation = paths['/contents']['get'];
-type ListContentsParams = NonNullable<QueryOf<ListContentsOperation>>;
-type ListContentsResponse = SuccessResponse<ListContentsOperation['responses']>;
+export type ListContentsParams = NonNullable<QueryOf<ListContentsOperation>>;
+export type ListContentsResponse = SuccessResponse<ListContentsOperation['responses']>;
 
 export function listContents(params?: ListContentsParams) {
   const query = buildQueryString(params as unknown as Record<string, unknown> | undefined);

@@ -1,0 +1,120 @@
+<view class="settings-page ds-page">
+  <view class="settings-section">
+    <text class="section-title">账户与安全</text>
+    <view class="settings-list">
+      <view class="setting-item" bindtap="handleLinkTap" data-url="">
+        <view class="item-icon item-icon--profile">
+          <image class="item-icon-img" mode="aspectFit" src="/assets/images/icons/classic-chinese/dressing-table.svg"></image>
+        </view>
+        <view class="item-content">
+          <text class="item-title">个人资料</text>
+          <text class="item-desc">昵称、头像、身份信息</text>
+        </view>
+        <text class="item-arrow">›</text>
+      </view>
+      <view class="setting-item" bindtap="handleLinkTap" data-url="">
+        <view class="item-icon item-icon--security">
+          <image class="item-icon-img" mode="aspectFit" src="/assets/images/icons/classic-chinese/screen.svg"></image>
+        </view>
+        <view class="item-content">
+          <text class="item-title">账号安全</text>
+          <text class="item-desc">密码、二次验证、登录记录</text>
+        </view>
+        <text class="item-arrow">›</text>
+      </view>
+      <view class="setting-item" bindtap="handleLinkTap" data-url="">
+        <view class="item-icon item-icon--phone">
+          <image class="item-icon-img" mode="aspectFit" src="/assets/images/icons/classic-chinese/coat-rack.svg"></image>
+        </view>
+        <view class="item-content">
+          <text class="item-title">绑定手机号</text>
+          <text class="item-desc">变更绑定号码、短信找回</text>
+        </view>
+        <text class="item-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="settings-section">
+    <text class="section-title">消息与提醒</text>
+    <view class="settings-list">
+      <view class="setting-item">
+        <view class="item-icon item-icon--notify">
+          <image class="item-icon-img" mode="aspectFit" src="/assets/images/icons/classic-chinese/table-lamp.svg"></image>
+        </view>
+        <view class="item-content">
+          <text class="item-title">推送通知</text>
+          <text class="item-desc">订单状态、发货提醒实时推送</text>
+        </view>
+        <switch
+          class="item-switch"
+          color="#c98f63"
+          checked="{{notificationEnabled}}"
+          bindchange="handleToggleChange"
+          data-key="notificationEnabled"
+        />
+      </view>
+      <view class="setting-item">
+        <view class="item-icon item-icon--gift">
+          <image class="item-icon-img" mode="aspectFit" src="/assets/images/icons/classic-chinese/flower-stand.svg"></image>
+        </view>
+        <view class="item-content">
+          <text class="item-title">活动与优惠</text>
+          <text class="item-desc">新品首发、会员专享福利</text>
+        </view>
+        <switch
+          class="item-switch"
+          color="#c98f63"
+          checked="{{campaignEnabled}}"
+          bindchange="handleToggleChange"
+          data-key="campaignEnabled"
+        />
+      </view>
+      <view class="setting-item">
+        <view class="item-icon item-icon--location">
+          <image class="item-icon-img" mode="aspectFit" src="/assets/images/icons/classic-chinese/entry-cabinet.svg"></image>
+        </view>
+        <view class="item-content">
+          <text class="item-title">位置服务</text>
+          <text class="item-desc">基于定位推荐线下门店</text>
+        </view>
+        <switch
+          class="item-switch"
+          color="#c98f63"
+          checked="{{locationEnabled}}"
+          bindchange="handleToggleChange"
+          data-key="locationEnabled"
+        />
+      </view>
+    </view>
+  </view>
+
+  <view class="settings-section">
+    <text class="section-title">辅助功能</text>
+    <view class="settings-list">
+      <view class="setting-item" bindtap="handleLinkTap" data-url="">
+        <view class="item-icon item-icon--invoice">
+          <image class="item-icon-img" mode="aspectFit" src="/assets/images/icons/classic-chinese/bookshelf.svg"></image>
+        </view>
+        <view class="item-content">
+          <text class="item-title">发票与报销</text>
+          <text class="item-desc">开票信息、历史发票下载</text>
+        </view>
+        <text class="item-arrow">›</text>
+      </view>
+      <view class="setting-item" bindtap="handleLinkTap" data-url="">
+        <view class="item-icon item-icon--support">
+          <image class="item-icon-img" mode="aspectFit" src="/assets/images/icons/classic-chinese/tea-table.svg"></image>
+        </view>
+        <view class="item-content">
+          <text class="item-title">帮助与反馈</text>
+          <text class="item-desc">常见问题、在线客服反馈</text>
+        </view>
+        <text class="item-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <button class="logout-btn pill-btn pill-btn--primary" bindtap="handleLogout">退出登录</button>
+</view>
+

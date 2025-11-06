@@ -1,7 +1,7 @@
 <view class="ds-page community-page">
   <view class="profile-card ds-card ds-card--accent">
     <view class="profile-info">
-      <image class="avatar" mode="aspectFill" src="{{profile && profile.avatar ? profile.avatar : '/assets/avatar-placeholder.png'}}"></image>
+      <image class="avatar" mode="aspectFill" src="{{profile && profile.avatar ? profile.avatar : '/assets/avatar-placeholder.jpg'}}"></image>
       <view class="profile-meta">
         <text class="nickname">{{profile && profile.nickname ? profile.nickname : '游客'}}</text>
         <text class="level">LV{{profile && profile.level ? profile.level : 0}} {{profile && profile.levelName ? profile.levelName : '体验会员'}}</text>
@@ -9,15 +9,15 @@
     </view>
     <view class="profile-stats">
       <view class="stat">
-        <text class="stat-number">{{profile && profile.points ? profile.points : 0}}</text>
+        <text class="stat-number">{{profile && profile.points ? profile.points : 2680}}</text>
         <text class="stat-label">积分</text>
       </view>
       <view class="stat">
-        <text class="stat-number">{{profile && profile.growthValue ? profile.growthValue : 0}}</text>
+        <text class="stat-number">{{profile && profile.growthValue ? profile.growthValue : 540}}</text>
         <text class="stat-label">成长值</text>
       </view>
       <view class="stat">
-        <text class="stat-number">{{profile && profile.couponCount ? profile.couponCount : 0}}</text>
+        <text class="stat-number">{{profile && profile.couponCount ? profile.couponCount : 4}}</text>
         <text class="stat-label">优惠券</text>
       </view>
     </view>
@@ -55,29 +55,71 @@
       <text class="ds-title">社区动态</text>
       <text class="ds-subtitle">会员精选·UGC内容</text>
     </view>
-    <block wx:if="{{feeds.length === 0}}">
+    <view class="sub-tabs" wx:if="{{feedTabs.length > 1}}">
+      <block wx:for="{{feedTabs}}" wx:key="*this">
+        <view
+          class="sub-tab-item {{activeFeedTab === item ? 'active' : ''}}"
+          data-tab="{{item}}"
+          bindtap="handleFeedTabChange"
+        >
+          {{item}}
+        </view>
+      </block>
+    </view>
+    <block wx:if="{{displayFeeds.length === 0}}">
       <view class="empty ds-card ds-card--frosted">暂无动态，欢迎发布你的故事</view>
     </block>
     <block wx:else>
-      <block wx:for="{{feeds}}" wx:key="id">
-        <view class="feed-card ds-card ds-card--frosted">
-          <view class="feed-header">
-            <image class="feed-avatar" mode="aspectFill" src="{{item.authorAvatar}}"></image>
-            <view>
-              <text class="feed-author">{{item.authorName}}</text>
-              <text class="feed-time">{{item.publishTimeText}}</text>
+      <block wx:for="{{displayFeeds}}" wx:key="id">
+        <view class="feed-card-large ds-card surface-card">
+          <image
+            class="feed-cover-lg"
+            mode="aspectFill"
+            src="{{item.cover ? item.cover : (item.images && item.images.length ? item.images[0] : '/assets/images/promo-images/0.png')}}"
+          ></image>
+          <view class="feed-meta-content">
+            <view class="feed-meta-top">
+              <view class="feed-tag feed-tag-new" wx:if="{{item.tag || item.category}}">
+                {{item.tag ? item.tag : item.category}}
+              </view>
+              <text class="feed-time">{{item.publishTimeText ? item.publishTimeText : '刚刚更新'}}</text>
             </view>
-          </view>
-          <text class="feed-content">{{item.content}}</text>
-          <scroll-view scroll-x class="feed-images">
-            <block wx:for="{{item.images}}" wx:key="*this">
-              <image class="feed-image" mode="aspectFill" src="{{item}}"></image>
-            </block>
-          </scroll-view>
-          <view class="feed-actions">
-            <text>👍 {{item.likes}}</text>
-            <text>💬 {{item.comments}}</text>
-            <text>🔁 {{item.shares}}</text>
+            <text class="feed-title-lg">{{item.title ? item.title : (item.content ? item.content : '社区动态')}}</text>
+            <text
+              class="feed-subtitle-lg"
+              wx:if="{{item.summary || item.excerpt || item.content}}"
+            >
+              {{item.summary ? item.summary : (item.excerpt ? item.excerpt : (item.content ? item.content : ''))}}
+            </text>
+            <view class="feed-actions-lg">
+              <view class="feed-author-meta">
+                <image
+                  class="feed-avatar-sm"
+                  mode="aspectFill"
+                  src="{{item.authorAvatar ? item.authorAvatar : '/assets/avatar-placeholder.jpg'}}"
+                ></image>
+                <view class="feed-author-text">
+                  <text class="feed-author">{{item.authorName ? item.authorName : '社区成员'}}</text>
+                  <text class="feed-author-role">
+                    {{item.authorRole ? item.authorRole : '共创者'}}
+                  </text>
+                </view>
+              </view>
+              <view class="feed-stats">
+                <view class="feed-stat-item">
+                  <text class="feed-stat-icon">👁</text>
+                  <text class="feed-stat-value">{{item.views ? item.views : (item.reads ? item.reads : 0)}}</text>
+                </view>
+                <view class="feed-stat-item">
+                  <text class="feed-stat-icon">👍</text>
+                  <text class="feed-stat-value">{{item.likes ? item.likes : 0}}</text>
+                </view>
+                <view class="feed-stat-item">
+                  <text class="feed-stat-icon">💬</text>
+                  <text class="feed-stat-value">{{item.comments ? item.comments : 0}}</text>
+                </view>
+              </view>
+            </view>
           </view>
         </view>
       </block>
@@ -114,3 +156,4 @@
     </view>
   </view>
 </view>
+
